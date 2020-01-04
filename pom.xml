@@ -15,9 +15,15 @@
 		</license>
 	</licenses>
 	<organization>
-		<name>Thorsten Marx</name>
-		<url>http://thorstenmarx.com</url>
+		<name>WP DigitalExperience</name>
+		<url>http://wp-digitalexperience.com</url>
 	</organization>
+	<contributors>
+		<contributor>
+			<name>Thorsten Mars</name>
+			<email>thorsten@wp-digitalexperience.com</email>
+		</contributor>
+	</contributors>
 	
 	<modules>
 		<module>modules/api</module>
