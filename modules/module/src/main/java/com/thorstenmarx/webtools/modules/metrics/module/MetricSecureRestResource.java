@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -34,10 +35,16 @@ public class MetricSecureRestResource extends SecureRestResourceExtension {
 	@GET
 	@Path("/kpi")
 	@Produces(MediaType.APPLICATION_JSON)
-	public KPIResult kpi(final String name, final String site, final long start, final long end) {
+	public KPIResult kpi(@QueryParam("name") final String name, @QueryParam("site") final String site, @QueryParam("start") final long start, @QueryParam("end") final long end) {
 		KPIResult bean = new KPIResult();
 		
+		
+		
 		return bean;
+	}
+	
+	public KPIResult kpi () {
+		return null;
 	}
 	
 }

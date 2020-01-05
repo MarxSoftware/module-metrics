@@ -31,6 +31,7 @@ import com.thorstenmarx.webtools.api.analytics.Events;
 import com.thorstenmarx.webtools.modules.metrics.api.Average;
 import com.thorstenmarx.webtools.modules.metrics.api.Conversion;
 import com.thorstenmarx.webtools.modules.metrics.api.Metric;
+import com.thorstenmarx.webtools.modules.metrics.engine.functions.CartFunction;
 import com.thorstenmarx.webtools.modules.metrics.engine.functions.EventFunction;
 import com.thorstenmarx.webtools.modules.metrics.engine.functions.PageViewFunction;
 import com.thorstenmarx.webtools.modules.metrics.engine.functions.UniqueUsersFunction;
@@ -58,6 +59,9 @@ public enum KPI {
 	})),
 	ORDERS_PER_USER("orders_per_user", new Metric<Float>(() -> {
 		return new Average(new UniqueUsersFunction(), new EventFunction(Events.Order.value()));
+	})),
+	CART_ABANDONED_CONVERSION("cart_abandoned_conversion", new Metric<Float>(() -> {
+		return new Conversion(new CartFunction(CartFunction.Type.ALL), new CartFunction(CartFunction.Type.ABANDONED));
 	})),
 	;
 	
