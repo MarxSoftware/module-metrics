@@ -9,6 +9,7 @@ import com.thorstenmarx.modules.api.annotation.Extension;
 import com.thorstenmarx.webtools.api.analytics.AnalyticsDB;
 import com.thorstenmarx.webtools.api.extensions.SecureRestResourceExtension;
 import com.thorstenmarx.webtools.modules.metrics.engine.Engine;
+import com.thorstenmarx.webtools.modules.metrics.engine.Resolution;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -30,6 +31,7 @@ public class MetricSecureRestResource extends SecureRestResourceExtension {
 	
 	@Override
 	public void init() {
+		engine = new Engine(analyticsDb);
 	}
 	
 	@GET
@@ -38,13 +40,23 @@ public class MetricSecureRestResource extends SecureRestResourceExtension {
 	public KPIResult kpi(@QueryParam("name") final String name, @QueryParam("site") final String site, @QueryParam("start") final long start, @QueryParam("end") final long end) {
 		KPIResult bean = new KPIResult();
 		
-		
+		bean.setName(name);
+		bean.setValue(engine.getKPI(name, site, start, end));
 		
 		return bean;
 	}
 	
-	public KPIResult kpi () {
-		return null;
+	@GET
+	@Path("/range")
+	@Produces(MediaType.APPLICATION_JSON)
+	public KPIResult range(@QueryParam("name") final String name, @QueryParam("site") final String site, @QueryParam("start") final long start, @QueryParam("end") final long end) {
+		KPIResult bean = new KPIResult();
+		
+		bean.setName(name);
+		bean.setValue(engine.getKPI(name, site, start, end, Resolution.MONTH));
+		
+		return bean;
 	}
+	
 	
 }
