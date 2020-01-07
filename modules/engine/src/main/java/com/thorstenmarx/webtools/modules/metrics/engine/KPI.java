@@ -55,7 +55,7 @@ public enum KPI {
 	ORDERS_PER_USER("orders_per_user", new Metric<Float>(() -> {
 		return new Average(new UniqueUsersFunction(), new EventFunction(Events.Order.value()));
 	})),
-	CART_ABANDONED_CONVERSION("cart_abandoned_conversion", new Metric<Float>(() -> {
+	CART_ABANDONED_CONVERSION("cart_abandoned_rate", new Metric<Float>(() -> {
 		return new Conversion(new CartFunction(CartFunction.Type.ALL), new CartFunction(CartFunction.Type.ABANDONED));
 	})),
 	;
