@@ -39,25 +39,25 @@ public enum KPI {
 	
 	UNIQUE_USERS("unique_users", new Metric<Integer>(() -> {
 		return new UniqueUsersFunction();
-	})),
-	PAGEVIEWS_PER_USER("pageviews_per_user", new Metric(() -> {
+	}, 0)),
+	PAGEVIEWS_PER_USER("pageviews_per_user", new Metric<Float>(() -> {
 		return new Average(new UniqueUsersFunction(), new PageViewFunction());
-	})),
-	PAGEVIEWS_PER_VISIT("pageviews_per_visit", new Metric(() -> {
+	}, 0f)),
+	PAGEVIEWS_PER_VISIT("pageviews_per_visit", new Metric<Float>(() -> {
 		return new Average(new VisitsFunction(), new PageViewFunction());
-	})),
-	VISITS_PER_USER("visits_pre_user", new Metric(() -> {
+	}, 0f)),
+	VISITS_PER_USER("visits_pre_user", new Metric<Float>(() -> {
 		return new Average(new UniqueUsersFunction(), new VisitsFunction());
-	})),
+	}, 0f)),
 	ORDER_CONVERSEN_RATE("order_conversion_rate", new Metric<Float>(() -> {
 		return new Conversion(new UniqueUsersFunction(), new EventFunction(Events.Order.value()));
-	})),
+	}, 0f)),
 	ORDERS_PER_USER("orders_per_user", new Metric<Float>(() -> {
 		return new Average(new UniqueUsersFunction(), new EventFunction(Events.Order.value()));
-	})),
+	}, 0f)),
 	CART_ABANDONED_CONVERSION("cart_abandoned_rate", new Metric<Float>(() -> {
 		return new Conversion(new CartFunction(CartFunction.Type.ALL), new CartFunction(CartFunction.Type.ABANDONED));
-	})),
+	}, 0f)),
 	;
 	
 	private final Metric metric;

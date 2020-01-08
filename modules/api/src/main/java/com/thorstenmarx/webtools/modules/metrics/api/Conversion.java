@@ -52,6 +52,9 @@ public class Conversion implements ConsumerFunction<ShardDocument, Float>{
 	
 	public Float get () {
 		final Integer base = baseFunction.get();
+		if (base == 0) {
+			return 0f;
+		}
 		final Integer goal = goalFunction.get();
 		return ((float)goal / (float)base) * 100f;
 	}

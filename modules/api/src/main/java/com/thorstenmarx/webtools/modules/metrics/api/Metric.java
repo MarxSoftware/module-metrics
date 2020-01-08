@@ -47,9 +47,12 @@ public class Metric<V extends Number> {
 	private static final Logger LOGGER = LoggerFactory.getLogger(Metric.class);
 	
 	private final Supplier<ConsumerFunction<ShardDocument, V>> functionSupplier;
+	
+	private final V defaultValue;
 
-	public Metric(final Supplier<ConsumerFunction<ShardDocument, V>> functionSupplier) {
+	public Metric(final Supplier<ConsumerFunction<ShardDocument, V>> functionSupplier, final V defaultValue) {
 		this.functionSupplier = functionSupplier;
+		this.defaultValue = defaultValue;
 	}
 	
 	public V calculate (final AnalyticsDB db, final Query query) {
@@ -66,7 +69,8 @@ public class Metric<V extends Number> {
 		});
 		
 		try {
-			return result.get();
+			V resultValue = result.get();
+			return resultValue != null ? resultValue : defaultValue;
 		} catch (InterruptedException | ExecutionException ex) {
 			LOGGER.error("", ex);
 			throw new IllegalStateException(ex);

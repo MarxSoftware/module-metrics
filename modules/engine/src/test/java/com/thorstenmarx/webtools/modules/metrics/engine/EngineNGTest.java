@@ -89,4 +89,18 @@ public class EngineNGTest {
 		Assertions.assertThat(kpi.get("03-2000")).isEqualTo(0);
 	}
 	
+	@Test
+	public void test_range_kpi_null() throws ParseException {
+		OffsetDateTime startDate = OffsetDateTime.parse("2000-01-01T00:00:00+00:00");
+		OffsetDateTime endDate = OffsetDateTime.parse("2000-03-01T00:01:00+00:00");
+		
+		Map<String, Number> kpi = engine.getKPI(KPI.ORDER_CONVERSEN_RATE.getName(), TEST_SITE, startDate.toInstant().toEpochMilli(), endDate.toInstant().toEpochMilli(), Resolution.MONTH);
+		
+		Assertions.assertThat(kpi).isNotEmpty().hasSize(3);
+		Assertions.assertThat(kpi.keySet()).containsExactly("01-2000", "02-2000", "03-2000");
+		Assertions.assertThat(kpi.get("01-2000")).isEqualTo(0f);
+		Assertions.assertThat(kpi.get("02-2000")).isEqualTo(0f);
+		Assertions.assertThat(kpi.get("03-2000")).isEqualTo(0f);
+	}
+	
 }

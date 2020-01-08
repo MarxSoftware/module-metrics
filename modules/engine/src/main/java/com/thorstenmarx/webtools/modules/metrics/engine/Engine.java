@@ -34,8 +34,8 @@ import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  *
@@ -63,7 +63,7 @@ public class Engine {
 		
 		final Collection<OffsetDateTime[]> splitDateIntoMonths = Months.splitDateIntoMonths(new Date(start), new Date(end));
 		
-		final Map<String, Number> result = new HashMap<>();
+		final Map<String, Number> result = new TreeMap<>();
 		splitDateIntoMonths.forEach((range) -> {
 			final long startDate = range[0].toInstant().toEpochMilli();
 			final long endDate = range[1].toInstant().toEpochMilli();
