@@ -49,6 +49,9 @@ public enum KPI {
 	VISITS_PER_USER("visits_pre_user", new Metric<Float>(() -> {
 		return new Average(new UniqueUsersFunction(), new VisitsFunction());
 	}, 0f)),
+	UNIQUE_ORDERS("unique_orders", new Metric<Integer>(() -> {
+		return new EventFunction(Events.Order.value());
+	}, 0)),
 	ORDER_CONVERSEN_RATE("order_conversion_rate", new Metric<Float>(() -> {
 		return new Conversion(new UniqueUsersFunction(), new EventFunction(Events.Order.value()));
 	}, 0f)),
