@@ -36,7 +36,7 @@
 					<descriptors>
 						<descriptor>src/main/assembly/assembly.xml</descriptor>
 					</descriptors>
-					<finalName>${project.build.finalName}</finalName>
+					<finalName>module-metrics</finalName>
 				</configuration>
 				<executions>
 					<execution>
