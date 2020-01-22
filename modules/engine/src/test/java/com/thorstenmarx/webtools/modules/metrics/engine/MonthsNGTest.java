@@ -29,6 +29,7 @@ package com.thorstenmarx.webtools.modules.metrics.engine;
 
 import java.time.Instant;
 import java.time.OffsetDateTime;
+import java.util.Collection;
 import java.util.Date;
 import org.testng.annotations.Test;
 
@@ -51,6 +52,21 @@ public class MonthsNGTest {
 
 			System.out.println(date[0] + " and " + date[1]);
 
+		}
+	}
+	@Test
+	public void testPHPTimestamp() {
+		System.out.println("");
+		System.out.println("*****************************");
+		System.out.println("Split 2.1.2004 to 26.3.2004: ");
+		long start = 1543622401000l;
+		long end = 1580601599000l;
+
+		System.out.println("start : " + new Date(start).toString());
+		System.out.println("end : " + new Date(end).toString());
+		
+		for (OffsetDateTime[] date : Months.splitDateIntoMonths(new Date(start), new Date(end))) {
+			System.out.println(date[0] + " and " + date[1]);
 		}
 	}
 
