@@ -7,6 +7,7 @@ package com.thorstenmarx.webtools.modules.metrics.module;
 
 import com.thorstenmarx.modules.api.annotation.Extension;
 import com.thorstenmarx.webtools.api.analytics.AnalyticsDB;
+import com.thorstenmarx.webtools.api.cache.CacheLayer;
 import com.thorstenmarx.webtools.api.extensions.SecureRestResourceExtension;
 import com.thorstenmarx.webtools.modules.metrics.engine.Engine;
 import com.thorstenmarx.webtools.modules.metrics.engine.Resolution;
@@ -26,12 +27,14 @@ public class MetricSecureRestResource extends SecureRestResourceExtension {
 
 	@Inject
 	private AnalyticsDB analyticsDb;
+	@Inject
+	private CacheLayer cachelayer;
 	
 	private Engine engine;
 	
 	@Override
 	public void init() {
-		engine = new Engine(analyticsDb);
+		engine = new Engine(analyticsDb, cachelayer);
 	}
 	
 	@GET

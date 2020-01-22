@@ -29,6 +29,7 @@ package com.thorstenmarx.webtools.modules.metrics.engine;
 
 import com.thorstenmarx.webtools.api.analytics.Fields;
 import com.thorstenmarx.webtools.test.MockAnalyticsDB;
+import com.thorstenmarx.webtools.test.MockCacheLayer;
 import java.text.ParseException;
 import java.time.OffsetDateTime;
 import java.util.HashMap;
@@ -44,6 +45,7 @@ import org.testng.annotations.Test;
 public class EngineNGTest {
 
 	MockAnalyticsDB analyticsDB;
+	MockCacheLayer cachelayer;
 	Engine engine;
 	
 	static final String TEST_SITE = "test_site";
@@ -52,7 +54,8 @@ public class EngineNGTest {
 	public void setup() throws Exception {
 	
 		analyticsDB = new MockAnalyticsDB();
-		engine = new Engine(analyticsDB);
+		cachelayer = new MockCacheLayer();
+		engine = new Engine(analyticsDB, cachelayer);
 	}
 
 	private Map<String, Map<String, Object>> createEvent() {
