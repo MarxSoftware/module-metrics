@@ -106,6 +106,7 @@
 			<groupId>com.thorstenmarx.webtools</groupId>
 			<artifactId>webtools-test</artifactId>
 			<version>${webtools.version}</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 	
