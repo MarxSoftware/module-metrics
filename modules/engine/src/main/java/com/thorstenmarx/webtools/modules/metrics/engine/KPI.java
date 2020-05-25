@@ -22,10 +22,11 @@ package com.thorstenmarx.webtools.modules.metrics.engine;
  * #L%
  */
 
+import com.thorstenmarx.webtools.modules.metrics.engine.functions.OrdersTotalValue;
 import com.thorstenmarx.webtools.api.analytics.Events;
-import com.thorstenmarx.webtools.modules.metrics.api.Average;
-import com.thorstenmarx.webtools.modules.metrics.api.Conversion;
-import com.thorstenmarx.webtools.modules.metrics.api.Metric;
+import com.thorstenmarx.webtools.modules.metrics.engine.api.Average;
+import com.thorstenmarx.webtools.modules.metrics.engine.api.Conversion;
+import com.thorstenmarx.webtools.modules.metrics.engine.api.Metric;
 import com.thorstenmarx.webtools.modules.metrics.engine.functions.CartFunction;
 import com.thorstenmarx.webtools.modules.metrics.engine.functions.EventFunction;
 import com.thorstenmarx.webtools.modules.metrics.engine.functions.PageViewFunction;
@@ -41,7 +42,7 @@ public enum KPI {
 		return new UniqueUsersFunction();
 	}, 0)),
 	PAGEVIEWS_PER_USER("pageviews_per_user", new Metric<Float>(() -> {
-		return new Average(new UniqueUsersFunction(), new PageViewFunction());
+		return new Average<>(new UniqueUsersFunction(), new PageViewFunction());
 	}, 0f)),
 	PAGEVIEWS_PER_VISIT("pageviews_per_visit", new Metric<Float>(() -> {
 		return new Average(new VisitsFunction(), new PageViewFunction());
@@ -56,11 +57,14 @@ public enum KPI {
 		return new Conversion(new UniqueUsersFunction(), new EventFunction(Events.Order.value()));
 	}, 0f)),
 	ORDERS_PER_USER("orders_per_user", new Metric<Float>(() -> {
-		return new Average(new UniqueUsersFunction(), new EventFunction(Events.Order.value()));
+		return new Average<>(new UniqueUsersFunction(), new EventFunction(Events.Order.value()));
 	}, 0f)),
 	CART_ABANDONED_CONVERSION("cart_abandoned_rate", new Metric<Float>(() -> {
 		return new Conversion(new CartFunction(CartFunction.Type.ALL), new CartFunction(CartFunction.Type.ABANDONED));
 	}, 0f)),
+	ORDER_AVERAGE_VALUE("order_average_value", new Metric<Double>(() -> {
+		return new Average(new OrdersTotalValue(), new EventFunction(Events.Order.value()));
+	}, 0d)),
 	;
 	
 	private final Metric metric;

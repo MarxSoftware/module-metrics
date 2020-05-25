@@ -25,16 +25,12 @@ import javax.ws.rs.core.MediaType;
 @Extension(SecureRestResourceExtension.class)
 public class MetricSecureRestResource extends SecureRestResourceExtension {
 
-	@Inject
-	private AnalyticsDB analyticsDb;
-	@Inject
-	private CacheLayer cachelayer;
 	
-	private Engine engine;
+	
 	
 	@Override
 	public void init() {
-		engine = new Engine(analyticsDb, cachelayer);
+		
 	}
 	
 	@GET
@@ -44,7 +40,7 @@ public class MetricSecureRestResource extends SecureRestResourceExtension {
 		KPIResult bean = new KPIResult();
 		
 		bean.setName(name);
-		bean.setValue(engine.getKPI(name, site, start, end));
+		bean.setValue(MetricsLifeCycleExtension.engine.getKPI(name, site, start, end));
 		
 		return bean;
 	}
@@ -56,7 +52,7 @@ public class MetricSecureRestResource extends SecureRestResourceExtension {
 		KPIResult bean = new KPIResult();
 		
 		bean.setName(name);
-		bean.setValue(engine.getKPI(name, site, start, end, Resolution.MONTH));
+		bean.setValue(MetricsLifeCycleExtension.engine.getKPI(name, site, start, end, Resolution.MONTH));
 		
 		return bean;
 	}

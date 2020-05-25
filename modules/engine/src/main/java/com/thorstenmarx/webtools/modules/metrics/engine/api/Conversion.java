@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.thorstenmarx.webtools.modules.metrics.api;
+package com.thorstenmarx.webtools.modules.metrics.engine.api;
+
 
 /*-
  * #%L
@@ -27,13 +28,36 @@ package com.thorstenmarx.webtools.modules.metrics.api;
  * #L%
  */
 
-import java.util.function.Consumer;
+import com.thorstenmarx.webtools.api.analytics.query.ShardDocument;
+import java.util.function.ToIntFunction;
 
 /**
  *
  * @author marx
  */
-public interface ConsumerFunction<V,R> extends Consumer<V>{
+public class Conversion<T extends Number> implements ConsumerFunction<ShardDocument, Float>{
+
+	private final ConsumerFunction<ShardDocument, T> baseFunction;
+	private final ConsumerFunction<ShardDocument, T> goalFunction;
+
+	public Conversion(final ConsumerFunction<ShardDocument, T> baseFunction, final ConsumerFunction<ShardDocument, T> goalFunction) {
+		this.baseFunction = baseFunction;
+		this.goalFunction = goalFunction;
+	}
 	
-	public R get ();
+	public void accept (final ShardDocument document) {
+		baseFunction.accept(document);
+		goalFunction.accept(document);
+	}
+	
+	public Float get () {
+		final Number base = baseFunction.get();
+		if (base.floatValue() == 0) {
+			return 0f;
+		}
+		final Number goal = goalFunction.get();
+		return (goal.floatValue() / base.floatValue()) * 100f;
+	}
+	
+	
 }

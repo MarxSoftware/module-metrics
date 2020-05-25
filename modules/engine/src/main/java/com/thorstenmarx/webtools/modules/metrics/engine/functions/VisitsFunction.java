@@ -29,7 +29,7 @@ package com.thorstenmarx.webtools.modules.metrics.engine.functions;
 
 import com.thorstenmarx.webtools.api.analytics.Fields;
 import com.thorstenmarx.webtools.api.analytics.query.ShardDocument;
-import com.thorstenmarx.webtools.modules.metrics.api.ConsumerFunction;
+import com.thorstenmarx.webtools.modules.metrics.engine.api.ConsumerFunction;
 import java.util.HashSet;
 import java.util.Set;
 

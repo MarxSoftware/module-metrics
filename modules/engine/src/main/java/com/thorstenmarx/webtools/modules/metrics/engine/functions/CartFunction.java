@@ -3,7 +3,7 @@ package com.thorstenmarx.webtools.modules.metrics.engine.functions;
 import com.thorstenmarx.webtools.api.analytics.Events;
 import com.thorstenmarx.webtools.api.analytics.Fields;
 import com.thorstenmarx.webtools.api.analytics.query.ShardDocument;
-import com.thorstenmarx.webtools.modules.metrics.api.ConsumerFunction;
+import com.thorstenmarx.webtools.modules.metrics.engine.api.ConsumerFunction;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +23,7 @@ public class CartFunction implements ConsumerFunction<ShardDocument, Integer> {
 
 	private final Type type;
 
-	private Map<String, Cart> carts;
+	private final Map<String, Cart> carts;
 
 	public CartFunction(Type type) {
 		this.type = type;

@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.thorstenmarx.webtools.modules.metrics.engine.functions;
+package com.thorstenmarx.webtools.modules.metrics.engine.api;
 
 /*-
  * #%L
- * metrics-engine
+ * metrics-api
  * %%
  * Copyright (C) 2019 - 2020 Thorsten Marx
  * %%
@@ -27,35 +27,34 @@ package com.thorstenmarx.webtools.modules.metrics.engine.functions;
  * #L%
  */
 
-import com.thorstenmarx.webtools.api.analytics.Fields;
 import com.thorstenmarx.webtools.api.analytics.query.ShardDocument;
-import com.thorstenmarx.webtools.modules.metrics.engine.api.ConsumerFunction;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  *
  * @author marx
  */
-public class UniqueUsersFunction implements ConsumerFunction<ShardDocument, Integer>{
+public class Average<T extends Number> implements ConsumerFunction<ShardDocument, Float>{
 
-	private Set<String> userids;
-	
-	public UniqueUsersFunction () {
-		userids = new HashSet<>();
+	private final ConsumerFunction<ShardDocument, T> baseFunction;
+	private final ConsumerFunction<ShardDocument, T> goalFunction;
+
+	public Average(final ConsumerFunction<ShardDocument, T> baseFunction, final ConsumerFunction<ShardDocument, T> goalFunction) {
+		this.baseFunction = baseFunction;
+		this.goalFunction = goalFunction;
 	}
 	
-	@Override
-	public Integer get() {
-		return userids.size();
+	public void accept (final ShardDocument document) {
+		baseFunction.accept(document);
+		goalFunction.accept(document);
 	}
-
-	@Override
-	public void accept(final ShardDocument doc) {
-		if (!doc.document.containsKey(Fields.UserId.value())) {
-			return;
+	
+	public Float get () {
+		float base = ((Number)baseFunction.get()).floatValue();
+		if (base == 0f) {
+			return 0f;
 		}
-		final String userid = doc.document.getString(Fields.UserId.value());
-		userids.add(userid);
+		return ((((Number)goalFunction.get()).floatValue()) / base);
 	}
+	
+	
 }

@@ -14,10 +14,6 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.thorstenmarx.webtools.modules.metrics</groupId>
-			<artifactId>metrics-api</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>com.thorstenmarx.webtools</groupId>
 			<artifactId>webtools-api</artifactId>
 			<scope>provided</scope>

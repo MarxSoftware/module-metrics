@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.thorstenmarx.webtools.modules.metrics.api;
+package com.thorstenmarx.webtools.modules.metrics.engine.api;
 
 /*-
  * #%L
@@ -27,35 +27,13 @@ package com.thorstenmarx.webtools.modules.metrics.api;
  * #L%
  */
 
-import com.thorstenmarx.webtools.api.analytics.query.ShardDocument;
-import java.util.function.ToIntFunction;
+import java.util.function.Consumer;
 
 /**
  *
  * @author marx
  */
-public class Average implements ConsumerFunction<ShardDocument, Float>{
-
-	private final ConsumerFunction<ShardDocument, Integer> baseFunction;
-	private final ConsumerFunction<ShardDocument, Integer> goalFunction;
-
-	public Average(final ConsumerFunction<ShardDocument, Integer> baseFunction, final ConsumerFunction<ShardDocument, Integer> goalFunction) {
-		this.baseFunction = baseFunction;
-		this.goalFunction = goalFunction;
-	}
+public interface ConsumerFunction<V,R> extends Consumer<V>{
 	
-	public void accept (final ShardDocument document) {
-		baseFunction.accept(document);
-		goalFunction.accept(document);
-	}
-	
-	public Float get () {
-		float base = (float)baseFunction.get();
-		if (base == 0f) {
-			return 0f;
-		}
-		return ((float)goalFunction.get() / base);
-	}
-	
-	
+	public R get ();
 }
