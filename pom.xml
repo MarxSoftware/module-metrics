@@ -26,7 +26,6 @@
 	</contributors>
 	
 	<modules>
-		<module>modules/api</module>
 		<module>modules/engine</module>
 		<module>modules/module</module>
 	</modules>
@@ -38,7 +37,7 @@
 		<testng.version>7.1.0</testng.version>
 		<assertj.version>3.14.0</assertj.version>
 		<easymock.version>4.0.1</easymock.version>
-		<webtools.version>5.1.1</webtools.version>
+		<webtools.version>5.2.4</webtools.version>
 		<slf4j.version>1.7.25</slf4j.version>
 
 		<mahout.version>0.13.0</mahout.version>
@@ -46,11 +45,6 @@
 	<dependencyManagement>
 		<dependencies>
 			
-			<dependency>
-				<groupId>com.thorstenmarx.webtools.modules.metrics</groupId>
-				<artifactId>metrics-api</artifactId>
-				<version>${project.version}</version>
-			</dependency>
 			<dependency>
 				<groupId>com.thorstenmarx.webtools.modules.metrics</groupId>
 				<artifactId>metrics-engine</artifactId>

@@ -62,7 +62,7 @@ public enum KPI {
 	CART_ABANDONED_CONVERSION("cart_abandoned_rate", new Metric<Float>(() -> {
 		return new Conversion(new CartFunction(CartFunction.Type.ALL), new CartFunction(CartFunction.Type.ABANDONED));
 	}, 0f)),
-	ORDER_AVERAGE_VALUE("order_average_value", new Metric<Double>(() -> {
+	AVERAGE_ORDER_VALUE("average_order_value", new Metric<Double>(() -> {
 		return new Average(new OrdersTotalValue(), new EventFunction(Events.Order.value()));
 	}, 0d)),
 	;

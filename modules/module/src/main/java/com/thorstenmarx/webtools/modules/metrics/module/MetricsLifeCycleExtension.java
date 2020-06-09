@@ -9,7 +9,7 @@ import com.thorstenmarx.modules.api.ModuleLifeCycleExtension;
 import com.thorstenmarx.modules.api.annotation.Extension;
 import com.thorstenmarx.webtools.api.analytics.AnalyticsDB;
 import com.thorstenmarx.webtools.api.cache.CacheLayer;
-import com.thorstenmarx.webtools.modules.metrics.api.MetricsService;
+import com.thorstenmarx.webtools.api.metrics.MetricsService;
 import com.thorstenmarx.webtools.modules.metrics.engine.Engine;
 import javax.inject.Inject;
 
